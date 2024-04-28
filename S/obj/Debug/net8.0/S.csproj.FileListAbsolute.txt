@@ -1,0 +1,14 @@
+C:\Users\jekav\Documents\VScode\C#\UDP_group_chat\s\bin\Debug\net8.0\S.exe
+C:\Users\jekav\Documents\VScode\C#\UDP_group_chat\s\bin\Debug\net8.0\S.deps.json
+C:\Users\jekav\Documents\VScode\C#\UDP_group_chat\s\bin\Debug\net8.0\S.runtimeconfig.json
+C:\Users\jekav\Documents\VScode\C#\UDP_group_chat\s\bin\Debug\net8.0\S.dll
+C:\Users\jekav\Documents\VScode\C#\UDP_group_chat\s\bin\Debug\net8.0\S.pdb
+C:\Users\jekav\Documents\VScode\C#\UDP_group_chat\s\obj\Debug\net8.0\S.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jekav\Documents\VScode\C#\UDP_group_chat\s\obj\Debug\net8.0\S.AssemblyInfoInputs.cache
+C:\Users\jekav\Documents\VScode\C#\UDP_group_chat\s\obj\Debug\net8.0\S.AssemblyInfo.cs
+C:\Users\jekav\Documents\VScode\C#\UDP_group_chat\s\obj\Debug\net8.0\S.csproj.CoreCompileInputs.cache
+C:\Users\jekav\Documents\VScode\C#\UDP_group_chat\s\obj\Debug\net8.0\S.dll
+C:\Users\jekav\Documents\VScode\C#\UDP_group_chat\s\obj\Debug\net8.0\refint\S.dll
+C:\Users\jekav\Documents\VScode\C#\UDP_group_chat\s\obj\Debug\net8.0\S.pdb
+C:\Users\jekav\Documents\VScode\C#\UDP_group_chat\s\obj\Debug\net8.0\S.genruntimeconfig.cache
+C:\Users\jekav\Documents\VScode\C#\UDP_group_chat\s\obj\Debug\net8.0\ref\S.dll
