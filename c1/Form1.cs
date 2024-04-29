@@ -28,7 +28,7 @@ namespace GroupChatApp
             
             InitializeComponent();
             this.ClientSize = new Size(350, 500);
-            
+            this.BackColor = Color.FromArgb(39,58,82);
             //UDP client
             udpClient = new UdpClient();
             serverEP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), serverPort);
@@ -51,6 +51,7 @@ namespace GroupChatApp
             this.txtNickname = new TextBox();
             this.txtNickname.Location = new System.Drawing.Point(10, 10);
             this.txtNickname.Size = new System.Drawing.Size(140, 20);
+            txtNickname.BackColor = Color.FromArgb(230,230,230);
 
             // Button to join chat
             this.btnJoin = new Button();
@@ -58,6 +59,9 @@ namespace GroupChatApp
             this.btnJoin.Size = new System.Drawing.Size(75, 23);
             this.btnJoin.Text = "Join";
             this.btnJoin.Click += new EventHandler(btnJoin_Click);
+            btnJoin.BackColor = Color.FromArgb(18,107,125);
+            btnJoin.Font = new Font("Arial", 10, FontStyle.Bold); // You can adjust the font family, size, and style (bold, italic, etc.) as needed
+            btnJoin.ForeColor = Color.White;  // Change the text color of a button
 
             // Button to leave chat
             this.btnLeave = new Button();
@@ -65,6 +69,9 @@ namespace GroupChatApp
             this.btnLeave.Size = new System.Drawing.Size(75, 23);
             this.btnLeave.Text = "Leave";
             this.btnLeave.Click += new EventHandler(btnLeave_Click);
+            btnLeave.BackColor = Color.FromArgb(179,70,70);
+            btnLeave.Font = new Font("Arial", 8, FontStyle.Bold); // You can adjust the font family, size, and style (bold, italic, etc.) as needed
+            btnLeave.ForeColor = Color.White;  // Change the text color of a button
 
             // ListBox to display chat messages
             this.chatBox = new ListBox();
@@ -73,19 +80,26 @@ namespace GroupChatApp
             this.chatBox.Location = new System.Drawing.Point(10, 40);
             this.chatBox.Size = new System.Drawing.Size(315, 200);
             this.chatBox.TextChanged += new EventHandler(chatBox_TextChanged);
+            chatBox.BackColor = Color.FromArgb(230,230,230);
+            chatBox.Font = new Font("Arial", 11); // You can adjust the font family, size, and style (bold, italic, etc.) as needed
+            chatBox.ForeColor = Color.FromArgb(70,76,64);  // Change the text color of a button
 
             // TextBox for entering messages
             this.txtMessage = new TextBox();
-            this.txtMessage.Location = new System.Drawing.Point(10, 250);
-            this.txtMessage.Size = new System.Drawing.Size(250, 20);
+            this.txtMessage.Location = new System.Drawing.Point(10, 260);
+            this.txtMessage.Size = new System.Drawing.Size(255, 40);
             this.txtMessage.KeyDown += new KeyEventHandler(txtMessage_KeyDown);
+            txtMessage.BackColor = Color.FromArgb(230,230,230);
 
             // Button to send messages
             this.btnSend = new Button();
-            this.btnSend.Location = new System.Drawing.Point(270, 248);
-            this.btnSend.Size = new System.Drawing.Size(55, 23);
+            this.btnSend.Location = new System.Drawing.Point(260, 248);
+            this.btnSend.Size = new System.Drawing.Size(75, 32);
             this.btnSend.Text = "Send";
             this.btnSend.Click += new EventHandler(btnSend_Click);
+            btnSend.BackColor = Color.FromArgb(18,107,125);
+            btnSend.Font = new Font("Arial", 10, FontStyle.Bold); // You can adjust the font family, size, and style (bold, italic, etc.) as needed
+            btnSend.ForeColor = Color.White;  // Change the text color of a button
 
             // Add controls to the form
             this.Controls.Add(this.txtNickname);
@@ -123,7 +137,7 @@ namespace GroupChatApp
             txtMessage.Location = new Point(10, formHeight - txtMessage.Height - 10);
 
             // Set new size and position for btnSend
-            btnSend.Location = new Point(formWidth - btnSend.Width - 30, formHeight - btnSend.Height - 10);
+            btnSend.Location = new Point(formWidth - btnSend.Width - 30, formHeight - btnSend.Height - 5);
 
             // Adjust chatBox size to fill the remaining space
             chatBox.Size = new Size(textBoxWidth, formHeight - txtNickname.Height - txtMessage.Height - 40);
@@ -205,10 +219,24 @@ namespace GroupChatApp
                     if (from.Equals(serverEP))
                     {
                         // Display received message in chatBox
-                        this.Invoke((MethodInvoker)delegate
+                        if (receivedMessage.StartsWith(userName))
                         {
-                            chatBox.Items.Add(receivedMessage);
-                        });
+                            // Display user's own messages on the right side
+                            this.Invoke((MethodInvoker)delegate
+                            {
+                                chatBox.Items.Add(receivedMessage);
+                            });
+                        }
+                        else
+                        {
+                            // Display messages from others on the left side
+                            this.Invoke((MethodInvoker)delegate
+                            {
+                                chatBox.Items.Add(receivedMessage);
+                            });
+                        }
+
+                        
                     }
                 }
             }
