@@ -67,7 +67,15 @@ public class Server
             string userName = message.Substring(5);
             clients[sender] = userName;
             Console.WriteLine($"{userName} joined the chat.");
-            SendMessage("SERVER: " + userName + " has joined the chat.", sender);
+            byte[] buffer = Encoding.ASCII.GetBytes("SERVER: " + userName + " has joined the chat.");
+            foreach (var client in clients)
+            {
+                if (!client.Key.Equals(sender)) // do not send the message back to the sender
+                {
+                    udpServer.Send(buffer, buffer.Length, client.Key);
+                }
+            }
+            
         }
         else if (message.StartsWith("LEAVE"))
         {
@@ -93,10 +101,9 @@ public class Server
         byte[] buffer = Encoding.ASCII.GetBytes(message);
         foreach (var client in clients)
         {
-            if (!client.Key.Equals(sender)) // do not send the message back to the sender
-            {
-                udpServer.Send(buffer, buffer.Length, client.Key);
-            }
+
+            udpServer.Send(buffer, buffer.Length, client.Key);
+
         }
     }
 }

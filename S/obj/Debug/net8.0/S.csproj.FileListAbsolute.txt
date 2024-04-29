@@ -12,3 +12,17 @@ C:\Users\jekav\Documents\VScode\C#\UDP_group_chat\s\obj\Debug\net8.0\refint\S.dl
 C:\Users\jekav\Documents\VScode\C#\UDP_group_chat\s\obj\Debug\net8.0\S.pdb
 C:\Users\jekav\Documents\VScode\C#\UDP_group_chat\s\obj\Debug\net8.0\S.genruntimeconfig.cache
 C:\Users\jekav\Documents\VScode\C#\UDP_group_chat\s\obj\Debug\net8.0\ref\S.dll
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\s\bin\Debug\net8.0\S.exe
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\s\bin\Debug\net8.0\S.deps.json
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\s\bin\Debug\net8.0\S.runtimeconfig.json
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\s\bin\Debug\net8.0\S.dll
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\s\bin\Debug\net8.0\S.pdb
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\s\obj\Debug\net8.0\S.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\s\obj\Debug\net8.0\S.AssemblyInfoInputs.cache
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\s\obj\Debug\net8.0\S.AssemblyInfo.cs
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\s\obj\Debug\net8.0\S.csproj.CoreCompileInputs.cache
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\s\obj\Debug\net8.0\S.dll
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\s\obj\Debug\net8.0\refint\S.dll
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\s\obj\Debug\net8.0\S.pdb
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\s\obj\Debug\net8.0\S.genruntimeconfig.cache
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\s\obj\Debug\net8.0\ref\S.dll
