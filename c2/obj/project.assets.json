@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Kador\\OneDrive - Rīgas Tehniskā Universitāte\\Darbvirsma\\RTU\\4sem\\code\\PROJECTUkraineDrone\\UIchat\\c2\\c2.csproj",
+      "projectUniqueName": "C:\\Users\\Kador\\OneDrive - Rīgas Tehniskā Universitāte\\Darbvirsma\\RTU\\4sem\\code\\PROJECTUkraineDrone\\uichat\\c2\\c2.csproj",
       "projectName": "c2",
-      "projectPath": "C:\\Users\\Kador\\OneDrive - Rīgas Tehniskā Universitāte\\Darbvirsma\\RTU\\4sem\\code\\PROJECTUkraineDrone\\UIchat\\c2\\c2.csproj",
+      "projectPath": "C:\\Users\\Kador\\OneDrive - Rīgas Tehniskā Universitāte\\Darbvirsma\\RTU\\4sem\\code\\PROJECTUkraineDrone\\uichat\\c2\\c2.csproj",
       "packagesPath": "C:\\Users\\Kador\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Kador\\OneDrive - Rīgas Tehniskā Universitāte\\Darbvirsma\\RTU\\4sem\\code\\PROJECTUkraineDrone\\UIchat\\c2\\obj\\",
+      "outputPath": "C:\\Users\\Kador\\OneDrive - Rīgas Tehniskā Universitāte\\Darbvirsma\\RTU\\4sem\\code\\PROJECTUkraineDrone\\uichat\\c2\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Kador\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -38,6 +38,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -62,7 +67,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Users\\Kador\\AppData\\Roaming\\.dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
