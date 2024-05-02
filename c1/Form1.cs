@@ -9,15 +9,18 @@ namespace GroupChatApp
 {
     public partial class Form1 : Form
     {
-        
+        private int totalLineCount = 0;
         private TextBox txtNickname = new TextBox();
         private Button btnJoin = new Button();
         private Button btnLeave = new Button();
-        private ListBox chatBox = new ListBox();
+        private ListView chatBox = new ListView();
         private TextBox txtMessage = new TextBox();
         private Button btnSend = new Button();
-        
+        private Panel pnlChat = new Panel();
+        private int minimumWidth = 370; // Minimum width you want to allow
+        private int minimumHeight = 300; // Minimum height you want to allow
 
+        //Connection related
         private UdpClient udpClient;
         private string userName = "";
         private int serverPort = 11000;
@@ -27,21 +30,22 @@ namespace GroupChatApp
         {
             
             InitializeComponent();
-            this.ClientSize = new Size(350, 500);
+            this.ClientSize = new Size(430, 500);
             this.BackColor = Color.FromArgb(39,58,82);
+            this.MinimumSize = new Size(minimumWidth, minimumHeight);
             //UDP client
             udpClient = new UdpClient();
             serverEP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), serverPort);
             
         }
-        
+    
         private void InitializeComponent()
         {
             
             this.txtNickname = new TextBox();
             this.btnJoin = new Button();
             this.btnLeave = new Button();
-            this.chatBox = new ListBox();
+            this.chatBox = new ListView();
             this.txtMessage = new TextBox();
             this.btnSend = new Button();
 
@@ -73,16 +77,43 @@ namespace GroupChatApp
             btnLeave.Font = new Font("Arial", 8, FontStyle.Bold); // You can adjust the font family, size, and style (bold, italic, etc.) as needed
             btnLeave.ForeColor = Color.White;  // Change the text color of a button
 
-            // ListBox to display chat messages
-            this.chatBox = new ListBox();
-            this.chatBox.FormattingEnabled = true;
-            this.chatBox.IntegralHeight = false; // Enable auto-resize
-            this.chatBox.Location = new System.Drawing.Point(10, 40);
-            this.chatBox.Size = new System.Drawing.Size(315, 200);
-            this.chatBox.TextChanged += new EventHandler(chatBox_TextChanged);
+            // Panel for chat messages
+            this.pnlChat = new Panel();
+            this.pnlChat.Location = new Point(10, 40);
+            this.pnlChat.Size = new Size(310, 415);
+            this.pnlChat.BackColor = Color.FromArgb(230, 230, 230);
+            this.pnlChat.AutoScroll = true;
+
+            // ListView to display chat messages 
+            this.chatBox = new ListView();
+            this.chatBox.View = View.Details;
+            this.chatBox.FullRowSelect = true;
+            this.chatBox.HeaderStyle = ColumnHeaderStyle.None;
+            this.chatBox.Columns.Add(new ColumnHeader() { Width = this.pnlChat.Width - 4 });
+            this.chatBox.Dock = DockStyle.Top;
+            this.chatBox.GridLines = true;
+            this.chatBox.MultiSelect = false;
+
+            chatBox.View = View.Details;
+            chatBox.FullRowSelect = true;
+            chatBox.HeaderStyle = ColumnHeaderStyle.None;
+            //chatBox.Columns.Add(new ColumnHeader() { Width = 300 }); // Set initial width
+            //chatBox.Columns[0].AutoResize(ColumnHeaderAutoResizeStyle.None); // Disable auto-resize
+            chatBox.Dock = DockStyle.Fill;
+            chatBox.GridLines = true;
+            chatBox.MultiSelect = false;
+            chatBox.OwnerDraw = true;
+            this.chatBox.DrawItem += chatBox_DrawItem;
+            //chatBox.DrawItem += new DrawListViewItemEventHandler(chatBox_DrawItem);
+
+            //this.chatBox.SelectedIndexChanged += new EventHandler(chatBox_SelectedIndexChanged);
+            chatBox.GridLines = false;
             chatBox.BackColor = Color.FromArgb(230,230,230);
             chatBox.Font = new Font("Arial", 11); // You can adjust the font family, size, and style (bold, italic, etc.) as needed
             chatBox.ForeColor = Color.FromArgb(70,76,64);  // Change the text color of a button
+           
+            // Add ListView to Panel
+            this.pnlChat.Controls.Add(this.chatBox);
 
             // TextBox for entering messages
             this.txtMessage = new TextBox();
@@ -105,21 +136,119 @@ namespace GroupChatApp
             this.Controls.Add(this.txtNickname);
             this.Controls.Add(this.btnJoin);
             this.Controls.Add(this.btnLeave);
-            this.Controls.Add(this.chatBox);
             this.Controls.Add(this.txtMessage);
             this.Controls.Add(this.btnSend);
+            this.Controls.Add(this.pnlChat);
 
             this.ResumeLayout(false);
             this.Resize += new EventHandler(Form1_Resize);
         }
 
-        private void chatBox_TextChanged(object sender, EventArgs e)
+        private int totalHeight = 0; // Variable to keep track of total height of messages
+
+        private void chatBox_DrawItem(object sender, DrawListViewItemEventArgs e)
         {
-            // Automatically scroll to the bottom of the chat box
-            chatBox.TopIndex = chatBox.Items.Count - 1;
+
+            e.DrawDefault = false; // We'll handle the drawing ourselves
+
+            // Define the text to draw and its font
+            string text = e.Item.Text;
+            Font font = e.Item.Font;
+
+            // Define the drawing rectangle
+            Rectangle bounds = e.Bounds;
+
+            // Define the string format for text drawing
+            StringFormat stringFormat = new StringFormat();
+            stringFormat.Alignment = StringAlignment.Near;
+            stringFormat.LineAlignment = StringAlignment.Center;
+            stringFormat.Trimming = StringTrimming.EllipsisWord; // Truncate with ellipsis if needed
+
+            // Calculate the size of the text
+            SizeF textSize = e.Graphics.MeasureString(text, font, bounds.Width, stringFormat);
+
+            // Adjust the bounds height to fit the entire text
+            bounds.Height = (int)textSize.Height;
+
+            // Calculate the position to draw the text
+            int yPos;
+            if (e.ItemIndex > 0)
+            {
+                // Calculate yPos relative to the previous item's position
+                yPos = chatBox.GetItemRect(e.ItemIndex - 1).Bottom + 2;
+            }
+            else
+            {
+                // If it's the first item, draw it at the top
+                yPos = bounds.Top;
+            }
+
+            // If it's the user's own message, align it to the right
+            if (text.StartsWith(userName) && text.IndexOf(userName + ":") == 0)
+            {
+                e.Item.BackColor = Color.LightBlue; // Optionally, change background color for own messages
+                e.Item.ForeColor = Color.Black; // Optionally, change text color for own messages
+
+                // Calculate the position to draw the text (align to the right)
+                int xPos = chatBox.Width - (int)textSize.Width;;
+                int adjustedYPos = yPos + (e.ItemIndex > 0 ? 2 : 0); // Add some spacing if not the first item
+
+                // Draw the text
+                e.Graphics.DrawString(text, font, Brushes.Black, new Rectangle(xPos, adjustedYPos, bounds.Width, bounds.Height), stringFormat);
+            }
+            else
+            {
+                int adjustedYPos = yPos + (e.ItemIndex > 0 ? 2 : 0); // Add some spacing if not the first item
+
+                // Draw the text
+                e.Graphics.DrawString(text, font, Brushes.Black, bounds, stringFormat);
+            }
         }
+
+        // Method to wrap text into multiple lines
+        private string WrapText(string text, Font font, int maxWidth)
+        {
+            string[] words = text.Split(' ');
+            StringBuilder sb = new StringBuilder();
+            float lineWidth = 0f;
+            float spaceWidth = TextRenderer.MeasureText(" ", font).Width;
+
+            foreach (string word in words)
+            {
+                Size wordSize = TextRenderer.MeasureText(word, font);
+                if (lineWidth + wordSize.Width < maxWidth)
+                {
+                    sb.Append(word + " ");
+                    lineWidth += wordSize.Width + spaceWidth;
+                }
+                else
+                {
+                    sb.Append("\n" + word + " ");
+                    lineWidth = wordSize.Width + spaceWidth;
+                }
+            }
+
+            string wrappedText = sb.ToString().Trim(); // Trim to remove any trailing whitespace
+
+            // Split the wrapped text into lines
+            string[] lines = wrappedText.Split('\n');
+
+            // Join the lines with line breaks
+            return string.Join(Environment.NewLine, lines);
+        }
+
         private void Form1_Resize(object sender, EventArgs e)
         {
+            totalHeight = 0;
+                // Ensure the form size doesn't fall below the minimum size
+            if (this.Width < minimumWidth)
+            {
+                this.Width = minimumWidth;
+            }
+            if (this.Height < minimumHeight)
+            {
+                this.Height = minimumHeight;
+            }
             // Calculate the new sizes and positions of the controls
             int formWidth = this.ClientSize.Width;
             int formHeight = this.ClientSize.Height;
@@ -142,6 +271,13 @@ namespace GroupChatApp
             // Adjust chatBox size to fill the remaining space
             chatBox.Size = new Size(textBoxWidth, formHeight - txtNickname.Height - txtMessage.Height - 40);
             chatBox.Location = new Point(10, txtNickname.Bottom + 10);
+            chatBox.Columns[0].Width = chatBox.Width - SystemInformation.VerticalScrollBarWidth;
+            //chatBox.Columns[0].Width = (textBoxWidth - formWidth);
+            //chatBox.Columns.Add(new ColumnHeader() { Width = textBoxWidth - formWidth });
+            
+            // Adjust pnlChat size to fill match chatbox space
+            pnlChat.Size = new Size(textBoxWidth, formHeight - txtNickname.Height - txtMessage.Height - 40);
+            pnlChat.Location = new Point(10, txtNickname.Bottom + 10);
 
             // Adjust btnJoin and btnLeave positions
             btnJoin.Location = new Point(txtNickname.Right + 10, 10);
@@ -165,7 +301,7 @@ namespace GroupChatApp
             SendLeaveNotification();
             udpClient.Close();
             // Leave the chat and disconnect from the server
-            this.Close();
+            this.Close(); // Comment if app exit not needed
         }
 
         private void btnSend_Click(object sender, EventArgs e)
@@ -219,25 +355,13 @@ namespace GroupChatApp
                     if (from.Equals(serverEP))
                     {
                         // Display received message in chatBox
-                        if (receivedMessage.StartsWith(userName))
+                        this.Invoke((MethodInvoker)delegate
                         {
-                            // Display user's own messages on the right side
-                            this.Invoke((MethodInvoker)delegate
-                            {
-                                chatBox.Items.Add(receivedMessage);
-                            });
-                        }
-                        else
-                        {
-                            // Display messages from others on the left side
-                            this.Invoke((MethodInvoker)delegate
-                            {
-                                chatBox.Items.Add(receivedMessage);
-                            });
-                        }
-
-                        
-                    }
+                            ListViewItem item = new ListViewItem(receivedMessage);
+                            chatBox.Items.Add(item);
+                            chatBox.EnsureVisible(item.Index);
+                        });
+                    };
                 }
             }
             catch (Exception ex)
@@ -245,5 +369,7 @@ namespace GroupChatApp
                 Console.WriteLine("Disconnected from server: " + ex.Message);
             }
         }
+
+
     }
 }
