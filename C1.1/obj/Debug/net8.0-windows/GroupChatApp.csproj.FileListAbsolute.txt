@@ -1,0 +1,14 @@
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\UI\GroupChatApp\obj\Debug\net8.0-windows\GroupChatApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\UI\GroupChatApp\obj\Debug\net8.0-windows\GroupChatApp.AssemblyInfoInputs.cache
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\UI\GroupChatApp\obj\Debug\net8.0-windows\GroupChatApp.AssemblyInfo.cs
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\UI\GroupChatApp\obj\Debug\net8.0-windows\GroupChatApp.csproj.CoreCompileInputs.cache
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\UI\GroupChatApp\bin\Debug\net8.0-windows\GroupChatApp.exe
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\UI\GroupChatApp\bin\Debug\net8.0-windows\GroupChatApp.deps.json
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\UI\GroupChatApp\bin\Debug\net8.0-windows\GroupChatApp.runtimeconfig.json
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\UI\GroupChatApp\bin\Debug\net8.0-windows\GroupChatApp.dll
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\UI\GroupChatApp\bin\Debug\net8.0-windows\GroupChatApp.pdb
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\UI\GroupChatApp\obj\Debug\net8.0-windows\GroupChatApp.dll
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\UI\GroupChatApp\obj\Debug\net8.0-windows\refint\GroupChatApp.dll
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\UI\GroupChatApp\obj\Debug\net8.0-windows\GroupChatApp.pdb
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\UI\GroupChatApp\obj\Debug\net8.0-windows\GroupChatApp.genruntimeconfig.cache
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\UI\GroupChatApp\obj\Debug\net8.0-windows\ref\GroupChatApp.dll

@@ -1,0 +1,28 @@
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\UIChat\c1\obj\Debug\net8.0-windows\c1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\UIChat\c1\obj\Debug\net8.0-windows\c1.AssemblyInfoInputs.cache
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\UIChat\c1\obj\Debug\net8.0-windows\c1.AssemblyInfo.cs
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\UIChat\c1\obj\Debug\net8.0-windows\c1.csproj.CoreCompileInputs.cache
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\UIChat\c1\bin\Debug\net8.0-windows\c1.exe
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\UIChat\c1\bin\Debug\net8.0-windows\c1.deps.json
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\UIChat\c1\bin\Debug\net8.0-windows\c1.runtimeconfig.json
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\UIChat\c1\bin\Debug\net8.0-windows\c1.dll
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\UIChat\c1\bin\Debug\net8.0-windows\c1.pdb
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\UIChat\c1\obj\Debug\net8.0-windows\c1.dll
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\UIChat\c1\obj\Debug\net8.0-windows\refint\c1.dll
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\UIChat\c1\obj\Debug\net8.0-windows\c1.pdb
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\UIChat\c1\obj\Debug\net8.0-windows\c1.genruntimeconfig.cache
+C:\Users\Kador\OneDrive - Rīgas Tehniskā Universitāte\Darbvirsma\RTU\4sem\code\PROJECTUkraineDrone\UIChat\c1\obj\Debug\net8.0-windows\ref\c1.dll
+C:\Users\jekav\Documents\School\Other\UDP_group_chat - Copy\c1\bin\Debug\net8.0-windows\c1.exe
+C:\Users\jekav\Documents\School\Other\UDP_group_chat - Copy\c1\bin\Debug\net8.0-windows\c1.deps.json
+C:\Users\jekav\Documents\School\Other\UDP_group_chat - Copy\c1\bin\Debug\net8.0-windows\c1.runtimeconfig.json
+C:\Users\jekav\Documents\School\Other\UDP_group_chat - Copy\c1\bin\Debug\net8.0-windows\c1.dll
+C:\Users\jekav\Documents\School\Other\UDP_group_chat - Copy\c1\bin\Debug\net8.0-windows\c1.pdb
+C:\Users\jekav\Documents\School\Other\UDP_group_chat - Copy\c1\obj\Debug\net8.0-windows\c1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jekav\Documents\School\Other\UDP_group_chat - Copy\c1\obj\Debug\net8.0-windows\c1.AssemblyInfoInputs.cache
+C:\Users\jekav\Documents\School\Other\UDP_group_chat - Copy\c1\obj\Debug\net8.0-windows\c1.AssemblyInfo.cs
+C:\Users\jekav\Documents\School\Other\UDP_group_chat - Copy\c1\obj\Debug\net8.0-windows\c1.csproj.CoreCompileInputs.cache
+C:\Users\jekav\Documents\School\Other\UDP_group_chat - Copy\c1\obj\Debug\net8.0-windows\c1.dll
+C:\Users\jekav\Documents\School\Other\UDP_group_chat - Copy\c1\obj\Debug\net8.0-windows\refint\c1.dll
+C:\Users\jekav\Documents\School\Other\UDP_group_chat - Copy\c1\obj\Debug\net8.0-windows\c1.pdb
+C:\Users\jekav\Documents\School\Other\UDP_group_chat - Copy\c1\obj\Debug\net8.0-windows\c1.genruntimeconfig.cache
+C:\Users\jekav\Documents\School\Other\UDP_group_chat - Copy\c1\obj\Debug\net8.0-windows\ref\c1.dll
