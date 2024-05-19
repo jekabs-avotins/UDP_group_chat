@@ -4,6 +4,8 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using System.Collections.Generic;
+using System.Timers; // This imports the Timer class from System.Timers
 
 namespace GroupChatApp
 {
@@ -25,7 +27,13 @@ namespace GroupChatApp
         private string userName = "";
         private int serverPort = 11000;
         private IPEndPoint serverEP;
-
+        private int messageId = 0;
+        private Dictionary<int, string> pendingMessages;
+        private System.Timers.Timer retryTimer;
+        private Random random;
+        private bool AccessDenied;
+        private int buff = -1;
+        
         public Form1()
         {
             
@@ -34,14 +42,23 @@ namespace GroupChatApp
             this.BackColor = Color.FromArgb(39,58,82);
             this.MinimumSize = new Size(minimumWidth, minimumHeight);
             //UDP client
-            udpClient = new UdpClient();
+            this.userName = userName;
+            udpClient = new UdpClient(0);
             serverEP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), serverPort);
+            pendingMessages = new Dictionary<int, string>();
+            retryTimer = new System.Timers.Timer(3000); // Using System.Timers.Timer
+            retryTimer.Elapsed += HandleRetry;
+            retryTimer.AutoReset = true; // Ensure the timer fires repeatedly
+            random = new Random();
+            Thread receiveThread = new Thread(ReceiveMessages);
+            receiveThread.Start();
+            AccessDenied = true;
             
         }
     
         private void InitializeComponent()
         {
-            
+
             this.txtNickname = new TextBox();
             this.btnJoin = new Button();
             this.btnLeave = new Button();
@@ -97,16 +114,14 @@ namespace GroupChatApp
             chatBox.View = View.Details;
             chatBox.FullRowSelect = true;
             chatBox.HeaderStyle = ColumnHeaderStyle.None;
-            //chatBox.Columns.Add(new ColumnHeader() { Width = 300 }); // Set initial width
-            //chatBox.Columns[0].AutoResize(ColumnHeaderAutoResizeStyle.None); // Disable auto-resize
             chatBox.Dock = DockStyle.Fill;
             chatBox.GridLines = true;
             chatBox.MultiSelect = false;
             chatBox.OwnerDraw = true;
             this.chatBox.DrawItem += chatBox_DrawItem;
-            //chatBox.DrawItem += new DrawListViewItemEventHandler(chatBox_DrawItem);
+            
 
-            //this.chatBox.SelectedIndexChanged += new EventHandler(chatBox_SelectedIndexChanged);
+            
             chatBox.GridLines = false;
             chatBox.BackColor = Color.FromArgb(230,230,230);
             chatBox.Font = new Font("Arial", 11); // You can adjust the font family, size, and style (bold, italic, etc.) as needed
@@ -182,15 +197,14 @@ namespace GroupChatApp
                 // If it's the first item, draw it at the top
                 yPos = bounds.Top;
             }
-
-            // If it's the user's own message, align it to the right
+            
             if (text.StartsWith(userName) && text.IndexOf(userName + ":") == 0)
             {
                 e.Item.BackColor = Color.LightBlue; // Optionally, change background color for own messages
                 e.Item.ForeColor = Color.Black; // Optionally, change text color for own messages
 
                 // Calculate the position to draw the text (align to the right)
-                int xPos = chatBox.Width - (int)textSize.Width;;
+                int xPos = chatBox.Width - (int)textSize.Width - 5;
                 int adjustedYPos = yPos + (e.ItemIndex > 0 ? 2 : 0); // Add some spacing if not the first item
 
                 // Draw the text
@@ -293,6 +307,7 @@ namespace GroupChatApp
         SendJoinRequest();
         Thread receiveThread = new Thread(ReceiveMessages);
         receiveThread.Start();
+        AccessDenied = false;
         }
 
         private void btnLeave_Click(object sender, EventArgs e)
@@ -301,15 +316,19 @@ namespace GroupChatApp
             SendLeaveNotification();
             udpClient.Close();
             // Leave the chat and disconnect from the server
+            retryTimer.Stop();
             this.Close(); // Comment if app exit not needed
         }
 
         private void btnSend_Click(object sender, EventArgs e)
         {
+            if (!AccessDenied)
+            {
             // Handle send button click event
             string message = txtMessage.Text;
             SendMessage(message);
             txtMessage.Clear();
+            }
         }
 
         private void txtMessage_KeyDown(object sender, KeyEventArgs e)
@@ -324,23 +343,40 @@ namespace GroupChatApp
         
         private void SendJoinRequest()
         {
-            string message = "JOIN " + userName;
-            byte[] buffer = Encoding.ASCII.GetBytes(message);
-            udpClient.Send(buffer, buffer.Length, serverEP);
+                string message = "JOIN " + userName;
+                SendMessageInternal(message);
         }
 
         private void SendLeaveNotification()
         {
             string message = "LEAVE";
-            byte[] buffer = Encoding.ASCII.GetBytes(message);
-            udpClient.Send(buffer, buffer.Length, serverEP);
+            SendMessageInternal(message);
         }
 
         private void SendMessage(string message)
         {
             string formattedMessage = "MSG " + message;
-            byte[] buffer = Encoding.ASCII.GetBytes(formattedMessage);
-            udpClient.Send(buffer, buffer.Length, serverEP);
+            SendMessageInternal(formattedMessage);
+
+        }
+
+        private void SendMessageInternal(string messageContent)
+        {
+            string message = $"{messageId}:{messageContent}";
+            byte[] buffer = Encoding.ASCII.GetBytes(message);
+            // Simulate packet drop
+            if (random.Next(5) == 0) // 50% chance to send or drop
+            {
+                udpClient.Send(buffer, buffer.Length, serverEP);
+                Console.WriteLine($"Sent message: {message}");
+            }
+
+            if (!pendingMessages.ContainsKey(messageId))
+            {
+                pendingMessages[messageId] = message;
+                Retry();
+            }
+            messageId++;
         }
 
         private void ReceiveMessages()
@@ -352,24 +388,85 @@ namespace GroupChatApp
                     IPEndPoint from = new IPEndPoint(IPAddress.Any, 0);
                     byte[] receivedBytes = udpClient.Receive(ref from);
                     string receivedMessage = Encoding.ASCII.GetString(receivedBytes);
-                    if (from.Equals(serverEP))
+                    pendingMessages.Clear();
+                    if (receivedMessage.StartsWith("ACK:"))
                     {
+                        HandleAck(receivedMessage);
+                    }
+                    else
+                    {
+                        string[] parts = receivedMessage.Split(new char[] { ':' }, 2);
+                        int msgId = int.Parse(parts[0]);
+                        string msgContent = parts[1];
+
+                        SendAck(msgId, serverEP);
                         // Display received message in chatBox
                         this.Invoke((MethodInvoker)delegate
                         {
-                            ListViewItem item = new ListViewItem(receivedMessage);
-                            chatBox.Items.Add(item);
-                            chatBox.EnsureVisible(item.Index);
+                            if(msgId > buff)
+                            {
+                                ListViewItem item = new ListViewItem(msgContent);
+                                chatBox.Items.Add(item);
+                                chatBox.EnsureVisible(item.Index);
+                                buff = msgId;
+                            }
+
                         });
-                    };
+                    }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Disconnected from server: " + ex.Message);
+                
             }
         }
 
+
+        private void HandleAck(string ackMessage)
+        {
+            int ackId = int.Parse(ackMessage.Split(':')[1]);
+            if (pendingMessages.ContainsKey(ackId))
+            {
+                pendingMessages.Remove(ackId);
+            }
+            if (pendingMessages.Count == 0)
+            {
+                retryTimer.Stop();
+            }
+        }
+
+        private void HandleRetry(object sender, ElapsedEventArgs e)
+        {
+            foreach (var message in pendingMessages.Values)
+            {
+                byte[] buffer = Encoding.ASCII.GetBytes(message);
+                udpClient.Send(buffer, buffer.Length, serverEP);
+                Console.WriteLine("Resending message: " + message);
+            }
+        }
+
+        private void SendAck(int messageId, IPEndPoint sender)
+    {
+        if (random.Next(2) == 0) // 50% chance to send or drop
+        {
+            string ackMessage = $"ACK:{messageId}";
+            byte[] ackBuffer = Encoding.ASCII.GetBytes(ackMessage);
+            udpClient.Send(ackBuffer, ackBuffer.Length, serverEP);
+        }
+    }
+
+        private void Retry()
+        {
+                if (!retryTimer.Enabled)
+                {
+                    retryTimer.Stop();
+                    retryTimer.Start();
+                }
+                else
+                {
+                    retryTimer.Start();
+                }
+        }
 
     }
 }
